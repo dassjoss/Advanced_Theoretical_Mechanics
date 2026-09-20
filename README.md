@@ -23,10 +23,18 @@ The topics span:
 **Authors:** Juan Pablo Otálvaro Ghisays, Jose David Ortíz Campo (Universidad de Antioquia)
 
 * **Physical System:** A simple pendulum mounted inside a vehicle undergoing vertical time-dependent acceleration $\vec{a}(t)$.
-* **Theoretical Framework:** Non-inertial frame transformation ($\vec{r} = \vec{R} + \vec{r}' \implies \ddot{\vec{r}}' = -\vec{a}(t)$), equivalent effective gravity field $-a(t)\hat{j}$, Lagrangian formulation $L = \frac{1}{2} m l^2 \dot{\phi}^2 + m a(t) l \cos\phi$, and 5th-order series expansion $\ddot{\phi} + \omega_0^2(t)\phi = \frac{\omega_0^2(t)}{6}\phi^3 - \frac{\omega_0^2(t)}{120}\phi^5$.
+* **Theoretical Framework:** Non-inertial frame transformation ($\vec{r} = \vec{R} + \vec{r}' \implies \ddot{\vec{r}}' = -\vec{a}(t)$), equivalent effective gravity field $-a(t)\hat{j}$, Lagrangian formulation $L = \frac{1}{2} m l^2 \dot{\phi}^2 + m a(t) l \cos\phi$, and 5th-order series expansion:
+  $$ \ddot{\phi} + \omega_0^2(t)\phi = \frac{\omega_0^2(t)}{6}\phi^3 - \frac{\omega_0^2(t)}{120}\phi^5 $$
 * **Waveforms Analyzed:** Square-wave acceleration ($a(t) = a_{\text{max}} \cdot \text{sq}(\omega t)$) and Sawtooth-wave acceleration ($a(t) = a_{\text{max}} \cdot \text{saw}(\omega t)$).
 * **Computational Methods:** Numerical ODE integration with `scipy.integrate.odeint`, phase-space trajectory generation $(\dot{\phi}, \phi)$, and animated motion rendering via `matplotlib.animation`.
 * **Key Findings:** The notebook examines parametric-response regimes for both square-wave and sawtooth-wave acceleration profiles. For sawtooth driving with mean frequency $\omega_0^2 = 9.8\text{ s}^{-2}$, parametric resonance occurs within the narrow frequency window $\gamma = 0.1\omega_0^2 + \epsilon$ for $0 < \epsilon < 0.06$. Beat phenomena (*pulsaciones*) emerge at specific frequencies ($\gamma = 0.02\omega_0^2, 0.003\omega_0^2, 0.108\omega_0^2$).
+
+<p align="center">
+  <img src="./images/problem1_phase_space.png" width="700">
+</p>
+<p align="center">
+  <em>Representative phase-space trajectories for the parametrically driven pendulum.</em>
+</p>
 
 ---
 
@@ -37,7 +45,16 @@ The topics span:
 * **Theoretical Framework:** Euler's equations of motion in body-fixed principal axes, simultaneous conservation of rotational kinetic energy $2E = I_1 \Omega_1^2 + I_2 \Omega_2^2 + I_3 \Omega_3^2$ and total angular momentum magnitude $M^2 = I_1^2 \Omega_1^2 + I_2^2 \Omega_2^2 + I_3^2 \Omega_3^2$, exact analytical solutions using Jacobi elliptic functions ($cn, sn, dn$) and Jacobi theta functions ($\vartheta$), and period calculation via the complete elliptic integral of the first kind $K(k)$.
 * **Parameters Evaluated:** $I_1 = 0.3$, $I_2 = 0.9$, $I_3 = 2.0$, $E = 0.5\text{ J}$, $M = 1.0\text{ kg}\cdot\text{m}^2/\text{s}$.
 * **Computational Methods:** High-precision evaluation with `mpmath` and `scipy.special` (`ellipj`, `ellipk`), numerical peak extraction via `scipy.signal.find_peaks`, 3D surface intersection solver (`scipy.optimize.fsolve`) for momentum spheres and energy ellipsoids, and 3D vector evolution animation.
-* **Key Findings:** Exact analytical period calculated as $T = 4 K(k) \sqrt{\frac{I_1 I_2 I_3}{(I_3 - I_2)(M^2 - 2E I_1)}} = 7.411\text{ s}$. Numerical peak-to-peak extraction confirms $\Omega_1(t)$ and $\Omega_2(t)$ oscillate with period $7.41\text{ s}$ ($T$), while $\Omega_3(t)$ oscillates with period $3.71\text{ s}$ ($T/2$). 3D visualization confirms the angular momentum vector $\vec{M}(t)$ moves along the closed polhode intersection curve.
+* **Key Findings:** Exact analytical period calculated as:
+  $$ T = 4 K(k) \sqrt{\frac{I_1 I_2 I_3}{(I_3 - I_2)(M^2 - 2E I_1)}} = 7.411\text{ s} $$
+  Numerical peak-to-peak extraction confirms $\Omega_1(t)$ and $\Omega_2(t)$ oscillate with period $7.41\text{ s}$ ($T$), while $\Omega_3(t)$ oscillates with period $3.71\text{ s}$ ($T/2$). 3D visualization confirms the angular momentum vector $\vec{M}(t)$ moves along the closed polhode intersection curve.
+
+<p align="center">
+  <img src="./images/problem2_polhode.png" width="650">
+</p>
+<p align="center">
+  <em>Energy ellipsoid and angular-momentum sphere intersection for the torque-free asymmetric rigid body.</em>
+</p>
 
 ---
 
@@ -52,6 +69,13 @@ The topics span:
 * **Computational Methods:** Symbolic derivation attempt via `sympy`, numerical quadrature via `scipy.integrate.quad`, cubic spline interpolation, and Brent's root-finding method (`scipy.optimize.brentq`).
 * **Key Findings:** The notebook evaluates the reconstructed trajectories for different initial radii ($r_0 \in \{5, 9, 10, 20\}$) in the $n=0$ case and performs trajectory reconstruction for the $n=1/2$ case via numerical radial quadratures.
 
+<p align="center">
+  <img src="./images/problem3_orbits.png" width="650">
+</p>
+<p align="center">
+  <em>Reconstructed planar trajectories for the nonlinear central potentials considered in the Hamilton–Jacobi analysis.</em>
+</p>
+
 ---
 
 ### Problem 4 — Perihelion Precession of Mercury in Schwarzschild Spacetime
@@ -59,10 +83,18 @@ The topics span:
 **Authors:** Juan Pablo Otálvaro Ghisays, Jose David Ortíz Campo (Universidad de Antioquia)
 
 * **Physical System:** Orbital motion of Mercury around the Sun in General Relativity vs. Classical Newtonian Gravitation.
-* **Theoretical Framework:** Schwarzschild metric in spherical coordinates ($r_g = \frac{2 G M}{c^2}$), relativistic Hamilton–Jacobi equation $g^{ik} \frac{\partial S}{\partial x^i} \frac{\partial S}{\partial x^k} - m^2 c^2 = 0$, action separation $S = -E t + L \phi + S_r(r)$, and power-series expansion of the radial action integral yielding the relativistic angular advance per revolution $\Delta \phi_{\text{per rev}} = \frac{6 \pi G M}{a c^2 (1 - e^2)}$.
+* **Theoretical Framework:** Schwarzschild metric in spherical coordinates ($r_g = \frac{2 G M}{c^2}$), relativistic Hamilton–Jacobi equation $g^{ik} \frac{\partial S}{\partial x^i} \frac{\partial S}{\partial x^k} - m^2 c^2 = 0$, action separation $S = -E t + L \phi + S_r(r)$, and power-series expansion of the radial action integral yielding the relativistic angular advance per revolution:
+  $$ \Delta \phi_{\text{per rev}} = \frac{6 \pi G M}{a c^2 (1 - e^2)} $$
 * **Physical Parameters (Mercury):** $G = 6.67430 \times 10^{-11} \text{ m}^3\text{kg}^{-1}\text{s}^{-2}$, $c = 2.99792458 \times 10^8 \text{ m/s}$, Solar Mass $M_\odot = 1.989 \times 10^{30} \text{ kg}$, semi-major axis $a = 5.791 \times 10^{10} \text{ m}$, eccentricity $e = 0.2056$, orbital rate $415.2\text{ revolutions/century}$.
 * **Computational Methods:** Numerical trajectory evaluation for Newtonian orbit $r(\theta) = \frac{p}{1 + e\cos\theta}$ vs. Relativistic precessing orbit $r(\theta) = \frac{p}{1 + e\cos((1-\delta)\theta)}$, polar-to-Cartesian trajectory mapping, and orbit precessional animation with `matplotlib.animation`.
 * **Key Quantitative Result:** The calculation gives a relativistic perihelion-precession rate of **$42.99''/\text{century}$** (42.99 arcseconds per century) for Mercury.
+
+<p align="center">
+  <img src="./images/problem4_mercury_precession.png" width="650">
+</p>
+<p align="center">
+  <em>Comparison between the Newtonian closed orbit and the relativistic perihelion-precessing trajectory of Mercury.</em>
+</p>
 
 ---
 
@@ -128,7 +160,8 @@ The repository emphasizes cross-verification between analytical predictions and 
    - **Analytical:** Low-angle harmonic expansion $\ddot{\phi} + \omega_0^2(t)\phi \approx 0$ and 5th-order expansion $\ddot{\phi} + \omega_0^2(t)\phi = \frac{\omega_0^2(t)}{6}\phi^3 - \frac{\omega_0^2(t)}{120}\phi^5$.
    - **Numerical:** Numerical ODE integration ($\ddot{\phi} + \frac{a(t)}{l}\sin\phi = 0$) using `odeint`, mapping non-linear amplitude growth and phase-space trajectories.
 2. **Asymmetric Rigid Body (Problem 2):**
-   - **Analytical:** Exact period derived via complete elliptic integral $T = 4 K(k) \sqrt{\frac{I_1 I_2 I_3}{(I_3 - I_2)(M^2 - 2E I_1)}} = 7.411\text{ s}$.
+   - **Analytical:** Exact period derived via complete elliptic integral:
+     $$ T = 4 K(k) \sqrt{\frac{I_1 I_2 I_3}{(I_3 - I_2)(M^2 - 2E I_1)}} = 7.411\text{ s} $$
    - **Numerical:** Automated peak detection via `scipy.signal.find_peaks` yields $\Delta t_{\text{peak}} = 7.41\text{ s}$ for $\Omega_1, \Omega_2$ and $3.71\text{ s}$ for $\Omega_3$ ($T/2$). Numerical 3D solver (`fsolve`) confirms the angular momentum vector traces the polhode intersection curve.
 3. **Hamilton–Jacobi Integrals (Problem 3):**
    - **Analytical:** Analytical inverse substitution integrals for Keplerian potential ($n=0$).
@@ -147,6 +180,11 @@ Advanced_Theoretical_Mechanics/
 ├── Ejercicio2_Mecanica_Teorica.ipynb   # Asymmetric Rigid Body & Jacobi Elliptic Functions
 ├── Ejercicio3_Mecanica_Teorica.ipynb   # Hamilton–Jacobi Formalism in Nonlinear Potentials
 ├── Ejercicio4_Mecanica_Teorica.ipynb   # Perihelion Precession of Mercury in Schwarzschild Spacetime
+├── images/                             # Representative Figures for Problems
+│   ├── problem1_phase_space.png
+│   ├── problem2_polhode.png
+│   ├── problem3_orbits.png
+│   └── problem4_mercury_precession.png
 └── README.md                           # Project Documentation
 ```
 
